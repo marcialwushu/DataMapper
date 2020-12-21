@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="YouLearnCursoModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="YouLearnCursoModelStoreContainer">
+    <EntitySet Name="C__EFMigrationsHistory" EntityType="YouLearnCursoModel.Store.C__EFMigrationsHistory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Canal" EntityType="YouLearnCursoModel.Store.Canal" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PlayList" EntityType="YouLearnCursoModel.Store.PlayList" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuario" EntityType="YouLearnCursoModel.Store.Usuario" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Video" EntityType="YouLearnCursoModel.Store.Video" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Canal_Usuario_IdUsuario" Association="YouLearnCursoModel.Store.FK_Canal_Usuario_IdUsuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Canal" EntitySet="Canal" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_Canal_IdCanal" Association="YouLearnCursoModel.Store.FK_Video_Canal_IdCanal">
+      <End Role="Canal" EntitySet="Canal" />
+      <End Role="Video" EntitySet="Video" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PlayList_Usuario_IdUsuario" Association="YouLearnCursoModel.Store.FK_PlayList_Usuario_IdUsuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="PlayList" EntitySet="PlayList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_PlayList_IdPlayList" Association="YouLearnCursoModel.Store.FK_Video_PlayList_IdPlayList">
+      <End Role="PlayList" EntitySet="PlayList" />
+      <End Role="Video" EntitySet="Video" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Video_Usuario_IdUsuario" Association="YouLearnCursoModel.Store.FK_Video_Usuario_IdUsuario">
+      <End Role="Usuario" EntitySet="Usuario" />
+      <End Role="Video" EntitySet="Video" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="C__EFMigrationsHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" Nullable="false" MaxLength="150" />
+    <Property Name="ProductVersion" Type="nvarchar" Nullable="false" MaxLength="32" />
+  </EntityType>
+  <EntityType Name="Canal">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="UrlLogo" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="true" />
+  </EntityType>
+  <EntityType Name="PlayList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PrimeiroNome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="UltimoNome" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Senha" Type="nvarchar" Nullable="false" MaxLength="36" />
+  </EntityType>
+  <EntityType Name="Video">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="IdCanal" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="IdPlayList" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Titulo" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Descricao" Type="nvarchar" Nullable="false" MaxLength="255" />
+    <Property Name="Tags" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="OrdemNaPlayList" Type="int" Nullable="false" />
+    <Property Name="IdVideoYoutube" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="IdUsuario" Type="uniqueidentifier" Nullable="true" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Canal_Usuario_IdUsuario">
+    <End Role="Usuario" Type="YouLearnCursoModel.Store.Usuario" Multiplicity="0..1" />
+    <End Role="Canal" Type="YouLearnCursoModel.Store.Canal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Canal">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_Canal_IdCanal">
+    <End Role="Canal" Type="YouLearnCursoModel.Store.Canal" Multiplicity="0..1" />
+    <End Role="Video" Type="YouLearnCursoModel.Store.Video" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Canal">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="IdCanal" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PlayList_Usuario_IdUsuario">
+    <End Role="Usuario" Type="YouLearnCursoModel.Store.Usuario" Multiplicity="0..1" />
+    <End Role="PlayList" Type="YouLearnCursoModel.Store.PlayList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PlayList">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_PlayList_IdPlayList">
+    <End Role="PlayList" Type="YouLearnCursoModel.Store.PlayList" Multiplicity="0..1" />
+    <End Role="Video" Type="YouLearnCursoModel.Store.Video" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PlayList">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="IdPlayList" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Video_Usuario_IdUsuario">
+    <End Role="Usuario" Type="YouLearnCursoModel.Store.Usuario" Multiplicity="0..1" />
+    <End Role="Video" Type="YouLearnCursoModel.Store.Video" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Video">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="YouLearnCursoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__EFMigrationsHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Canal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UrlLogo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Canal_Usuario_IdUsuario" FromRole="Canal" ToRole="Usuario" />
+          <NavigationProperty Name="Video" Relationship="Self.FK_Video_Canal_IdCanal" FromRole="Canal" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="PlayList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_PlayList_Usuario_IdUsuario" FromRole="PlayList" ToRole="Usuario" />
+          <NavigationProperty Name="Video" Relationship="Self.FK_Video_PlayList_IdPlayList" FromRole="PlayList" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="PrimeiroNome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UltimoNome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Senha" Type="String" MaxLength="36" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Canal" Relationship="Self.FK_Canal_Usuario_IdUsuario" FromRole="Usuario" ToRole="Canal" />
+          <NavigationProperty Name="PlayList" Relationship="Self.FK_PlayList_Usuario_IdUsuario" FromRole="Usuario" ToRole="PlayList" />
+          <NavigationProperty Name="Video" Relationship="Self.FK_Video_Usuario_IdUsuario" FromRole="Usuario" ToRole="Video" />
+        </EntityType>
+        <EntityType Name="Video">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="IdCanal" Type="Guid" />
+          <Property Name="IdPlayList" Type="Guid" />
+          <Property Name="Titulo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descricao" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Tags" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OrdemNaPlayList" Type="Int32" Nullable="false" />
+          <Property Name="IdVideoYoutube" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Guid" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Canal" Relationship="Self.FK_Video_Canal_IdCanal" FromRole="Video" ToRole="Canal" />
+          <NavigationProperty Name="PlayList" Relationship="Self.FK_Video_PlayList_IdPlayList" FromRole="Video" ToRole="PlayList" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Video_Usuario_IdUsuario" FromRole="Video" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Canal_Usuario_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Canal" Type="Self.Canal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Canal">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Video_Canal_IdCanal">
+          <End Role="Canal" Type="Self.Canal" Multiplicity="0..1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Canal">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Video">
+              <PropertyRef Name="IdCanal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlayList_Usuario_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="PlayList" Type="Self.PlayList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlayList">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Video_PlayList_IdPlayList">
+          <End Role="PlayList" Type="Self.PlayList" Multiplicity="0..1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlayList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Video">
+              <PropertyRef Name="IdPlayList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Video_Usuario_IdUsuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Video" Type="Self.Video" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Video">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="YouLearnCursoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__EFMigrationsHistory" EntityType="Self.C__EFMigrationsHistory" />
+          <EntitySet Name="Canal" EntityType="Self.Canal" />
+          <EntitySet Name="PlayList" EntityType="Self.PlayList" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <EntitySet Name="Video" EntityType="Self.Video" />
+          <AssociationSet Name="FK_Canal_Usuario_IdUsuario" Association="Self.FK_Canal_Usuario_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Canal" EntitySet="Canal" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Video_Canal_IdCanal" Association="Self.FK_Video_Canal_IdCanal">
+            <End Role="Canal" EntitySet="Canal" />
+            <End Role="Video" EntitySet="Video" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlayList_Usuario_IdUsuario" Association="Self.FK_PlayList_Usuario_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="PlayList" EntitySet="PlayList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Video_PlayList_IdPlayList" Association="Self.FK_Video_PlayList_IdPlayList">
+            <End Role="PlayList" EntitySet="PlayList" />
+            <End Role="Video" EntitySet="Video" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Video_Usuario_IdUsuario" Association="Self.FK_Video_Usuario_IdUsuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Video" EntitySet="Video" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="YouLearnCursoModelStoreContainer" CdmEntityContainer="YouLearnCursoEntities">
+    <EntitySetMapping Name="C__EFMigrationsHistory">
+      <EntityTypeMapping TypeName="IsTypeOf(YouLearnCursoModel.C__EFMigrationsHistory)">
+        <MappingFragment StoreEntitySet="C__EFMigrationsHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Canal">
+      <EntityTypeMapping TypeName="IsTypeOf(YouLearnCursoModel.Canal)">
+        <MappingFragment StoreEntitySet="Canal">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="UrlLogo" ColumnName="UrlLogo" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PlayList">
+      <EntityTypeMapping TypeName="IsTypeOf(YouLearnCursoModel.PlayList)">
+        <MappingFragment StoreEntitySet="PlayList">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="IsTypeOf(YouLearnCursoModel.Usuario)">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="PrimeiroNome" ColumnName="PrimeiroNome" />
+          <ScalarProperty Name="UltimoNome" ColumnName="UltimoNome" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Video">
+      <EntityTypeMapping TypeName="IsTypeOf(YouLearnCursoModel.Video)">
+        <MappingFragment StoreEntitySet="Video">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IdCanal" ColumnName="IdCanal" />
+          <ScalarProperty Name="IdPlayList" ColumnName="IdPlayList" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+          <ScalarProperty Name="Tags" ColumnName="Tags" />
+          <ScalarProperty Name="OrdemNaPlayList" ColumnName="OrdemNaPlayList" />
+          <ScalarProperty Name="IdVideoYoutube" ColumnName="IdVideoYoutube" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

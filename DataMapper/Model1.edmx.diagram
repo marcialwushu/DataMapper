@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c5b235440ffa4694aa93e43c312c0c18" Name="Diagram1">
+        <EntityTypeShape EntityType="YouLearnCursoModel.C__EFMigrationsHistory" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YouLearnCursoModel.Canal" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="YouLearnCursoModel.PlayList" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="YouLearnCursoModel.Usuario" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="YouLearnCursoModel.Video" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <AssociationConnector Association="YouLearnCursoModel.FK_Canal_Usuario_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="YouLearnCursoModel.FK_Video_Canal_IdCanal" ManuallyRouted="false" />
+        <AssociationConnector Association="YouLearnCursoModel.FK_PlayList_Usuario_IdUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="YouLearnCursoModel.FK_Video_PlayList_IdPlayList" ManuallyRouted="false" />
+        <AssociationConnector Association="YouLearnCursoModel.FK_Video_Usuario_IdUsuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
